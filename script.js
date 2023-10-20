@@ -50,5 +50,33 @@ function deleteTask(taskText) {
 
     updateTaskList();
 }
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addTask();
+    }
+});
 
 updateTaskList();
+
+function updateClockAndDate() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    var day = now.getDate();
+    var month = now.getMonth() + 1; // Mês começa em 0, então somamos 1
+    var year = now.getFullYear();
+
+    var clockElement = document.getElementById("clock");
+    var dateElement = document.getElementById("date");
+
+    clockElement.innerHTML = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+    dateElement.innerHTML = `${formatTime(day)}/${formatTime(month)}/${year}`;
+}
+
+function formatTime(time) {
+    return time < 10 ? `0${time}` : time;
+}
+
+setInterval(updateClockAndDate, 1000);
+updateClockAndDate();
